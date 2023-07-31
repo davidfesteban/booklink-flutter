@@ -1,7 +1,8 @@
-import 'package:booklink_visual/codegen/api.dart';
 import 'package:booklink_visual/service/persistanceutils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'api/api.dart';
 
 class MainViewModel {
   static Future<bool> reloadUser(BuildContext context) async {
