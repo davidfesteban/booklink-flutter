@@ -8,11 +8,10 @@ class TextLink extends StatelessWidget {
   final Function()? onHover;
 
   const TextLink(this.data,
-      {this.color = Colors.black,
+      {super.key, this.color = Colors.black,
       this.onPressed,
       this.onHover,
-      this.textAlign = TextAlign.center})
-      : super();
+      this.textAlign = TextAlign.center});
 
   @override
   Widget build(BuildContext context) {

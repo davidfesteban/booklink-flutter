@@ -35,7 +35,7 @@ class _LandingScreenState extends State<LandingScreen>
     var userExist = MainViewModel.reloadUser(context);
 
     final List<Widget> pages = [
-      FirstLandingPage(),
+      const FirstLandingPage(),
       //SecondLandingPage(),
       //ThirdLandingPage()
     ];

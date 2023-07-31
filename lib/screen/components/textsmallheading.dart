@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class TextSmallHeading extends StatelessWidget {
   final String data;
   final Color color;
   final TextAlign textAlign;
 
-  const TextSmallHeading(this.data, {this.color = Colors.black, this.textAlign = TextAlign.center}) : super();
+  const TextSmallHeading(this.data, {super.key, this.color = Colors.black, this.textAlign = TextAlign.center});
 
   @override
   Widget build(BuildContext context) {

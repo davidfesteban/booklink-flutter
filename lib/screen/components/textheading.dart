@@ -4,7 +4,7 @@ class TextHeading extends StatelessWidget {
   final String data;
   final Color color;
 
-  const TextHeading(this.data, {this.color = Colors.black}) : super();
+  const TextHeading(this.data, {super.key, this.color = Colors.black});
 
   @override
   Widget build(BuildContext context) {

@@ -32,6 +32,10 @@ dependencies:
   font_awesome_flutter: ^10.5.0
   #Requests (necessary for codegen)
   http: ^1.1.0
+  #Open Api Generator
+  openapi_generator_annotations: ^4.11.0
+
+
   #Template dependencies. Try to delete.
   intl: ^0.18.0
   snake_button: ^0.0.4
@@ -46,6 +50,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
+  openapi_generator: ^4.11.0
 
 flutter:
   uses-material-design: true

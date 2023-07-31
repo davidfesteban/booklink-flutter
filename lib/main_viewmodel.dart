@@ -24,10 +24,10 @@ class MainViewModel {
       if (userData == null || userData.toString().isEmpty) {
         return false;
       } else {
-        context.read<KeyStoreCubit>().get().setToken("Bearer " + jwtToken);
+        context.read<KeyStoreCubit>().get().setToken("Bearer $jwtToken");
         context.read<UserCache>().update(userData);
         return await PersistanceUtils.addUserTokenOnMemory(
-            "Bearer " + jwtToken);
+            "Bearer $jwtToken");
       }
     }
   }

@@ -5,7 +5,7 @@ class TextSubline extends StatelessWidget {
   final Color color;
   final TextAlign textAlign;
 
-  const TextSubline(this.data, {this.color = Colors.black, this.textAlign = TextAlign.center}) : super();
+  const TextSubline(this.data, {super.key, this.color = Colors.black, this.textAlign = TextAlign.center});
 
   @override
   Widget build(BuildContext context) {

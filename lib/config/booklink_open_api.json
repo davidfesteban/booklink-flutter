@@ -1,0 +1,489 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/public/auth/join": {
+      "post": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "registerUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/private/business/modify": {
+      "post": {
+        "tags": [
+          "business-crud-controller"
+        ],
+        "operationId": "modifyBusinessDetails",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BusinessPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/private/business/create": {
+      "post": {
+        "tags": [
+          "business-crud-controller"
+        ],
+        "operationId": "createBusiness",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BusinessPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/private/appointment/create": {
+      "post": {
+        "tags": [
+          "appointment-crud-controller"
+        ],
+        "operationId": "createAppointment",
+        "parameters": [
+          {
+            "name": "Host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AppointmentPayload"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/user/findDetails": {
+      "get": {
+        "tags": [
+          "user-crud-controller"
+        ],
+        "operationId": "findDetails",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/auth/login": {
+      "get": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "authenticateUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/public/auth/confirm": {
+      "get": {
+        "tags": [
+          "auth-controller"
+        ],
+        "operationId": "confirmUser",
+        "parameters": [
+          {
+            "name": "uuid",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/private/business/details": {
+      "get": {
+        "tags": [
+          "business-crud-controller"
+        ],
+        "operationId": "findBusinessDetails",
+        "parameters": [
+          {
+            "name": "Host",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/BusinessPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/private/appointment/remove": {
+      "get": {
+        "tags": [
+          "appointment-crud-controller"
+        ],
+        "operationId": "removeAppointment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppointmentPayload"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppointmentPayload": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "slotOwner": {
+            "type": "string"
+          },
+          "slotStartAppointment": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "slotDuration": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "slotService": {
+            "type": "string"
+          },
+          "manualBookingInfoByAdmin": {
+            "type": "string"
+          },
+          "manualBookingInviteToJoin": {
+            "type": "string"
+          }
+        }
+      },
+      "BusinessPayload": {
+        "type": "object",
+        "properties": {
+          "subdomain": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "slotDurationByServices": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          "workingHoursByDay": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/WorkingHours"
+            }
+          },
+          "slotOwners": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "specialWorkingDays": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/WorkingHours"
+            }
+          },
+          "appointments": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppointmentPayload"
+            }
+          }
+        }
+      },
+      "LocalTime": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nano": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "UserPayload": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "business": {
+            "$ref": "#/components/schemas/BusinessPayload"
+          },
+          "appointments": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppointmentPayload"
+            }
+          }
+        }
+      },
+      "WorkingHours": {
+        "type": "object",
+        "properties": {
+          "workStartHour": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "workStopHour": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "breakStartHour": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "breakStopHour": {
+            "$ref": "#/components/schemas/LocalTime"
+          }
+        }
+      }
+    }
+  }
+}

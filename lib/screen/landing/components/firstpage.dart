@@ -4,6 +4,8 @@ import '../../components/textheading.dart';
 import '../../components/textsubline.dart';
 
 class FirstLandingPage extends StatelessWidget {
+  const FirstLandingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Column(

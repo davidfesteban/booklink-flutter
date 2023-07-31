@@ -26,9 +26,7 @@ class HttpUtils {
 
   static Future<Response> post(String hostWithPort,
       {String path = "/", Map<String, dynamic>? query, Object? body, String jwtToken = ""}) async {
-    if (body == null) {
-      body = "";
-    }
+    body ??= "";
     return await http.post(Uri.http(hostWithPort, path, query), body: body, headers: {
       "Access-Control-Allow-Origin": "*", // Required for CORS support to work
       "Access-Control-Allow-Credentials":
@@ -36,7 +34,7 @@ class HttpUtils {
       "Access-Control-Allow-Headers":
           "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Authorization": "Bearer " + jwtToken
+      "Authorization": "Bearer $jwtToken"
     });
   }
 }
