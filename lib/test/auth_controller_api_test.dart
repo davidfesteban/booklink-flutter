@@ -22,7 +22,8 @@ void main() {
   group('tests for AuthControllerApi', () {
     //Future<String> authenticateUser(String email, String password) async
     test('test authenticateUser', () async {
-      // TODO
+      var token = await instance.authenticateUser("david@misei.dev", "nopass");
+      print(token);
     });
 
     //Future<Object> confirmUser(String uuid) async

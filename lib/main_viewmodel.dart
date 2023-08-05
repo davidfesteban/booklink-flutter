@@ -7,7 +7,7 @@ import 'api/api.dart';
 class MainViewModel {
   static Future<bool> reloadUser(BuildContext context) async {
     var jwtToken = context.read<KeyStoreCubit>().get().jwtToken;
-    var userData = context.read<UserCache>().get();
+    var userData = context.read<UserCacheCubit>().get();
     var jwtTokenStore = await PersistanceUtils.getUserTokenFromMemory();
 
     jwtToken ??= jwtTokenStore;
@@ -26,7 +26,7 @@ class MainViewModel {
         return false;
       } else {
         context.read<KeyStoreCubit>().get().setToken("Bearer $jwtToken");
-        context.read<UserCache>().update(userData);
+        context.read<UserCacheCubit>().update(userData);
         return await PersistanceUtils.addUserTokenOnMemory(
             "Bearer $jwtToken");
       }
@@ -35,8 +35,8 @@ class MainViewModel {
 }
 
 //region Cubit
-class UserCache extends Cubit<UserPayload?> {
-  UserCache() : super(null);
+class UserCacheCubit extends Cubit<UserPayload?> {
+  UserCacheCubit() : super(null);
 
   void update(UserPayload userPayload) => emit(userPayload);
 
@@ -54,14 +54,6 @@ class KeyStoreCubit extends Cubit<KeyStore> {
 
   KeyStore get() => state;
 }
-
-class LoadingSnackCubit extends Cubit<LoadingSnackState> {
-  LoadingSnackCubit() : super(LoadingSnackState(false, null));
-
-  void update(LoadingSnackState loadingSnackState) => emit(loadingSnackState);
-
-  LoadingSnackState get() => state;
-}
 //endregion
 
 //region STATES
@@ -77,12 +69,5 @@ class KeyStore {
     this.jwtToken = jwtToken;
     return this;
   }
-}
-
-class LoadingSnackState {
-  LoadingSnackState(this.isLoading, this.snackBarInfo);
-
-  bool isLoading;
-  String? snackBarInfo;
 }
 //endregion

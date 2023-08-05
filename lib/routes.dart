@@ -1,5 +1,6 @@
 const landing_route = "/landing";
 const login_route = "/login";
+const join_route = "/join";
 const loading_route = "/loading";
 const welcome_route = "/welcome";
 const home_route = "/home";
