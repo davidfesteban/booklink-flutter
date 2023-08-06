@@ -1,16 +1,17 @@
+import 'package:booklink_visual/screen/booking/booking_viewmodel.dart';
 import 'package:booklink_visual/screen/loading/loading.dart';
 import 'package:booklink_visual/screen/registration/login_page.dart';
 import 'package:booklink_visual/main_viewmodel.dart';
 import 'package:booklink_visual/routes.dart';
 import 'package:booklink_visual/screen/landing/landing.dart';
 import 'package:booklink_visual/screen/registration/register_page.dart';
-import 'package:booklink_visual/utils/hard_coded_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
 
+import 'main_pages/home_page.dart';
+
 void main() {
-  //HardCodedData.generateHardCodedData();
   runApp(const BooklinkApp());
 }
 
@@ -30,14 +31,15 @@ class BooklinkApp extends StatelessWidget {
           BlocProvider(
               lazy: false, create: (BuildContext context) => UserCacheCubit()),
           BlocProvider(
-              lazy: false, create: (BuildContext context) => KeyStoreCubit())
+              lazy: false, create: (BuildContext context) => KeyStoreCubit()),
+          BlocProvider(
+              lazy: false, create: (BuildContext context) => BusinessCubit())
         ],
         child: Builder(builder: ((context) {
-
           return MaterialApp(
                   title: 'Booklink',
                   debugShowCheckedModeBanner: false,
-                  theme: ThemeData(primaryColor: Colors.black),
+                  theme: ThemeData(primaryColor: Colors.black, useMaterial3: true),
                   initialRoute: landing_route,
                   scaffoldMessengerKey:
                       context.read<KeyStoreCubit>().get().scaffoldKey,
@@ -47,9 +49,9 @@ class BooklinkApp extends StatelessWidget {
                     landing_route: (context) => const LandingScreen(),
                     login_route: (context) => const LoginPage(),
                     join_route: (context) => const JoinPage(),
-                    loading_route: (context) => LoadingScreen()
+                    loading_route: (context) => LoadingScreen(),
                     //welcome_route: (context) => WelcomeScreen(),
-                    //home_route: (context) => HomeScreen(),
+                    home_route: (context) => const HomePage(),
                     //success_route: (context) => SuccessScreen(),
                     //error_route: (context) => ErrorScreen()
                   });
