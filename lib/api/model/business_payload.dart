@@ -166,8 +166,8 @@ class BusinessPayload {
         phone: mapValueOfType<String>(json, r'phone'),
         slotDurationByServices: mapCastOfType<String, int>(json, r'slotDurationByServices') ?? const {},
         workingHoursByDay: WorkingHours.mapFromJson(json[r'workingHoursByDay']),
-        slotOwners: json[r'slotOwners'] is Set
-            ? (json[r'slotOwners'] as Set).cast<String>()
+        slotOwners: json[r'slotOwners'] is List
+            ? Set.from((json[r'slotOwners'] as List))
             : const {},
         specialWorkingDays: WorkingHours.mapFromJson(json[r'specialWorkingDays']),
         appointments: AppointmentPayload.listFromJson(json[r'appointments']).toSet(),

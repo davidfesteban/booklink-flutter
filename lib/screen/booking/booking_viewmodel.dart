@@ -8,7 +8,7 @@ import '../../routes.dart';
 class BookingViewModel {
   static void recoverBusinessDetails(BuildContext context) {
     LoadingViewModel.perform(context, booking_route, () async {
-      var businessPayload = await BusinessCrudControllerApi().findBusinessDetails(Uri.base.host);
+      var businessPayload = await BusinessCrudControllerApi().findBusinessDetails(/*Uri.base.host*/"barbershop.booking.app");
 
       if (businessPayload != null) {
         context.read<BusinessCubit>().update(businessPayload);

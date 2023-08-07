@@ -1,3 +1,4 @@
+import 'package:booklink_visual/screen/booking/booking.dart';
 import 'package:booklink_visual/screen/booking/booking_viewmodel.dart';
 import 'package:booklink_visual/screen/loading/loading.dart';
 import 'package:booklink_visual/screen/registration/login_page.dart';
@@ -8,8 +9,6 @@ import 'package:booklink_visual/screen/registration/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:openapi_generator_annotations/openapi_generator_annotations.dart';
-
-import 'main_pages/home_page.dart';
 
 void main() {
   runApp(const BooklinkApp());
@@ -50,8 +49,8 @@ class BooklinkApp extends StatelessWidget {
                     login_route: (context) => const LoginPage(),
                     join_route: (context) => const JoinPage(),
                     loading_route: (context) => LoadingScreen(),
+                    booking_route: (context) => const BookingScreen()
                     //welcome_route: (context) => WelcomeScreen(),
-                    home_route: (context) => const HomePage(),
                     //success_route: (context) => SuccessScreen(),
                     //error_route: (context) => ErrorScreen()
                   });

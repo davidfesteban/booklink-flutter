@@ -22,7 +22,7 @@ void main() {
   group('tests for AuthControllerApi', () {
     //Future<String> authenticateUser(String email, String password) async
     test('test authenticateUser', () async {
-      var token = await instance.authenticateUser("david@misei.dev", "nopass");
+      var token = await instance.authenticateUser("david@misei.dev", "password");
       print(token);
     });
 
@@ -33,7 +33,7 @@ void main() {
 
     //Future<Object> registerUser(UserPayload userPayload) async
     test('test registerUser', () async {
-      instance.registerUser(UserPayload());
+      await instance.registerUser(UserPayload(name: "David Fdez", email: "david@misei.dev", password: "password", phone: "666789987"));
     });
   });
 }

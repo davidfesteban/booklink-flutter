@@ -69,54 +69,20 @@ class LocalTime {
   @override
   String toString() => 'LocalTime[hour=$hour, minute=$minute, second=$second, nano=$nano]';
 
-  Map<String, dynamic> toJson() {
-    final json = <String, dynamic>{};
-    if (this.hour != null) {
-      json[r'hour'] = this.hour;
-    } else {
-      json[r'hour'] = null;
-    }
-    if (this.minute != null) {
-      json[r'minute'] = this.minute;
-    } else {
-      json[r'minute'] = null;
-    }
-    if (this.second != null) {
-      json[r'second'] = this.second;
-    } else {
-      json[r'second'] = null;
-    }
-    if (this.nano != null) {
-      json[r'nano'] = this.nano;
-    } else {
-      json[r'nano'] = null;
-    }
-    return json;
+  String toJson() {
+    return "${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}";
   }
 
   /// Returns a new [LocalTime] instance and imports its values from
   /// [value] if it's a [Map], null otherwise.
   // ignore: prefer_constructors_over_static_methods
   static LocalTime? fromJson(dynamic value) {
-    if (value is Map) {
-      final json = value.cast<String, dynamic>();
-
-      // Ensure that the map contains the required keys.
-      // Note 1: the values aren't checked for validity beyond being non-null.
-      // Note 2: this code is stripped in release mode!
-      assert(() {
-        requiredKeys.forEach((key) {
-          assert(json.containsKey(key), 'Required key "LocalTime[$key]" is missing from JSON.');
-          assert(json[key] != null, 'Required key "LocalTime[$key]" has a null value in JSON.');
-        });
-        return true;
-      }());
-
+    if (value is List) {
       return LocalTime(
-        hour: mapValueOfType<int>(json, r'hour'),
-        minute: mapValueOfType<int>(json, r'minute'),
-        second: mapValueOfType<int>(json, r'second'),
-        nano: mapValueOfType<int>(json, r'nano'),
+        hour: value[0],
+        minute: value[1],
+        second: 0,
+        nano: 0,
       );
     }
     return null;

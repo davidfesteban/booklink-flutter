@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:booklink_visual/api/api.dart';
 import 'package:booklink_visual/screen/booking/booking_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +33,7 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
   Widget build(BuildContext context) {
     return BlocBuilder<BusinessCubit, BusinessPayload?>(builder: (context, state) {
       if (state == null) {
-        return const CircularProgressIndicator();
+        return FloatingActionButton(onPressed: () => BookingViewModel.recoverBusinessDetails(context));
       }
 
       return Scaffold(
@@ -45,22 +47,20 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
                     child: Text("What"),
                     onTap: () {
                       if (_tabController.index > 0) _tabController.animateTo(0);
-                    }),
-              ),
-              Tab(
-                child: GestureDetector(
+                    },
+                supportedDevices: const {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.unknown},
+              )),
+              GestureDetector(
                     child: Text("When"),
                     onTap: () {
                       if (_tabController.index > 1) _tabController.animateTo(1);
-                    }),
-              ),
-              Tab(
-                child: GestureDetector(
+                    },
+                  supportedDevices: const {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.unknown}),
+
+              const IgnorePointer(
+                child: Tab(
                     child: Text("Where"),
-                    onTap: () {
-                      if (_tabController.index > 2) _tabController.animateTo(2);
-                    }),
-              ),
+              )),
               Tab(
                 child: GestureDetector(
                     child: Text("Checkout"),
@@ -83,14 +83,21 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
             Center(
               child: Text("It's sunny here"),
             ),
+            Center(
+              child: Text("It's caca here"),
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              if (_tabController.length - 1 < _tabController.index) {
+              print("pressed");
+              if (_tabController.length - 1 > _tabController.index && 0 < _tabController.index) {
+                print("here1");
                 _tabController.animateTo(_tabController.index + 1);
+                print("here2");
               } else {
                 // Create appointment
+                print("here3");
               }
             },
             label: const Text("Next step")),
