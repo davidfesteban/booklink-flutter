@@ -1,10 +1,11 @@
-import 'package:booklink_visual/routes.dart';
+import 'package:booklink_visual/utils/routes.dart';
 import 'package:booklink_visual/screen/registration/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../api/api.dart';
+import '../../api/model/user_payload.dart';
 import '../../main_viewmodel.dart';
+import '../cubit/user/key_store.dart';
 
 class JoinPage extends StatefulWidget {
   const JoinPage({Key? key}) : super(key: key);

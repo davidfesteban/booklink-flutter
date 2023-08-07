@@ -1,10 +1,10 @@
-import 'package:booklink_visual/routes.dart';
+import 'package:booklink_visual/utils/routes.dart';
 import 'package:booklink_visual/screen/registration/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../api/api.dart';
+import '../../api/model/user_payload.dart';
 import '../../main_viewmodel.dart';
+import '../cubit/user/key_store.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -184,7 +184,8 @@ class __FormContentState extends State<_FormContent> {
                 },
               ),
             ),
-            TextButton(onPressed: () => context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(join_route), child: Text("Are you a new user?"))
+            TextButton(onPressed: () => context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(join_route),
+                child: Text("Are you a new user?"))
           ],
         ),
       ),

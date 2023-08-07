@@ -23,9 +23,12 @@ class BaseControllerApi {
   }
 
   Future<T?> handleResponse<T>(Response response) async {
-    if (response.statusCode >= HttpStatus.badRequest) {
+    if (response.statusCode == 418) {
+      throw ApiException(response.statusCode, response.headers["Message"]);
+    } else if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, await decodeBodyBytes(response));
     }
+
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
       return await apiClient.deserializeAsync(await decodeBodyBytes(response), T.toString()) as T;
     }

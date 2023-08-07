@@ -1,9 +1,10 @@
-import 'dart:ui';
-
-import 'package:booklink_visual/api/api.dart';
 import 'package:booklink_visual/screen/booking/booking_viewmodel.dart';
+import 'package:booklink_visual/screen/cubit/business/business_appointments_cubit.dart';
+import 'package:booklink_visual/screen/cubit/user/business_user_appointments_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../api/model/business_payload.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({
@@ -31,7 +32,7 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BusinessCubit, BusinessPayload?>(builder: (context, state) {
+    return BlocBuilder<PublicBusinessAppointmentsCubit, BusinessPayload?>(builder: (context, state) {
       if (state == null) {
         return FloatingActionButton(onPressed: () => BookingViewModel.recoverBusinessDetails(context));
       }

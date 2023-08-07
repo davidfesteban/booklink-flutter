@@ -1,11 +1,13 @@
 import 'package:booklink_visual/main_viewmodel.dart';
-import 'package:booklink_visual/routes.dart';
+import 'package:booklink_visual/utils/routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../cubit/user/key_store.dart';
 import 'components/firstpage.dart';
 
+//TODO: REDO
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
 
@@ -32,7 +34,7 @@ class _LandingScreenState extends State<LandingScreen>
 
   @override
   Widget build(BuildContext context) {
-    var userExist = MainViewModel.reloadUser(context);
+    var userExist = MainViewModel.reloadKeyStore(context);
 
     final List<Widget> pages = [
       const FirstLandingPage(),

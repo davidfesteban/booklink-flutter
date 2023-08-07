@@ -1,4 +1,5 @@
 const landing_route = "/landing";
+const splash_route = "/splash";
 const login_route = "/login";
 const join_route = "/join";
 const booking_route= "/booking";
