@@ -12,10 +12,10 @@ class BaseControllerApi {
   Future<Response> performApiCall(
     String path,
     String method, {
-    List<QueryParam> queryParams = const <QueryParam>[],
+    List<QueryParam>? queryParams,
     Object? postBody,
-    Map<String, String> headerParams = const {},
-    Map<String, String> formParams = const {},
+    Map<String, String>? headerParams,
+    Map<String, String>? formParams,
     String contentType = "application/json",
   }) async {
     final response = await apiClient.invokeAPI(path, method, queryParams, postBody, headerParams, formParams, contentType);
@@ -30,7 +30,11 @@ class BaseControllerApi {
     }
 
     if (response.body.isNotEmpty && response.statusCode != HttpStatus.noContent) {
-      return await apiClient.deserializeAsync(await decodeBodyBytes(response), T.toString()) as T;
+      try {
+        return await apiClient.deserializeAsync(await decodeBodyBytes(response), T.toString()) as T?;
+      } on Exception catch (error) {
+        return (response.body) as T?;
+      }
     }
     return null;
   }

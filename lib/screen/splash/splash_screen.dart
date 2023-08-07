@@ -32,7 +32,8 @@ class _SplashScreenState extends State<SplashScreen>
     _controller = AnimationController(
       duration: const Duration(seconds: 2),
       vsync: this,
-    )..repeat(reverse: true);
+    )
+      ..repeat(reverse: true);
 
     final Animation<double> _animation = CurvedAnimation(
       parent: _controller,
@@ -40,27 +41,52 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     //TODO: Deep linking
-    MainViewModel.reloadKeyStore(context)
-        .then((value) {
-          if(value) {
+    Future.delayed(const Duration(seconds: 2), () =>
+        MainViewModel.reloadKeyStore(context)
+            .then((value) {
+          if (value) {
             MainViewModel.reloadUserAppointments(context).then((value) {
-              if(value) {
-                context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(home_route);
+              if (value) {
+                context
+                    .read<KeyStoreCubit>()
+                    .get()
+                    .navigatorKey
+                    .currentState
+                    ?.pushReplacementNamed(home_route);
               } else {
-                context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(login_route);
+                context
+                    .read<KeyStoreCubit>()
+                    .get()
+                    .navigatorKey
+                    .currentState
+                    ?.pushReplacementNamed(login_route);
               }
             }).catchError((error) {
-              context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(login_route);
+              context
+                  .read<KeyStoreCubit>()
+                  .get()
+                  .navigatorKey
+                  .currentState
+                  ?.pushReplacementNamed(login_route);
               return null;
             });
           } else {
-            context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(login_route);
+            context
+                .read<KeyStoreCubit>()
+                .get()
+                .navigatorKey
+                .currentState
+                ?.pushReplacementNamed(login_route);
           }
-
         }).catchError((error) {
-          context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pushReplacementNamed(login_route);
+          context
+              .read<KeyStoreCubit>()
+              .get()
+              .navigatorKey
+              .currentState
+              ?.pushReplacementNamed(login_route);
           return null;
-        });
+        }));
 
     return Container(
         decoration: BoxDecoration(

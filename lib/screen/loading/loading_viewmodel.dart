@@ -22,6 +22,7 @@ class LoadingViewModel {
               }
             }).catchError((error) {
               context.read<KeyStoreCubit>().get().navigatorKey.currentState?.pop();
+              print(error);
               Future.delayed(const Duration(seconds: 1), () {
                 if (error is ApiException) {
                   context.read<KeyStoreCubit>().get().scaffoldKey.currentState?.showSnackBar(SnackBar(content: Text(error.toString())));

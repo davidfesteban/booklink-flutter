@@ -28,12 +28,16 @@ class ApiClient {
   Future<Response> invokeAPI(
     String path,
     String method,
-    List<QueryParam> queryParams,
+    List<QueryParam>? queryParams,
     Object? body,
-    Map<String, String> headerParams,
-    Map<String, String> formParams,
+    Map<String, String>? headerParams,
+    Map<String, String>? formParams,
     String? contentType,
   ) async {
+    queryParams ??= List<QueryParam>.empty(growable: true);
+    headerParams ??= <String, String>{};
+    formParams ??= <String, String>{};
+
     if (contentType != null) {
       headerParams['Content-Type'] = contentType;
     }

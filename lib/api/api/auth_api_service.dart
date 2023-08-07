@@ -12,9 +12,9 @@ class AuthApiService extends BaseControllerApi {
     const path = '/api/public/auth/login';
     final queryParams = <QueryParam>[QueryParam('email', email), QueryParam('password', password)];
 
-    final response = await performApiCall(path, 'GET', queryParams: queryParams);
+    final response = await performApiCall(path, 'GET', queryParams: queryParams, contentType: "text/plain");
 
-    return await handleResponse<String?>(response);
+    return await handleResponse<String>(response);
   }
 
   Future<Object?> registerUser(UserPayload userPayload) async {

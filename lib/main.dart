@@ -5,6 +5,7 @@ import 'package:booklink_visual/screen/cubit/user/key_store.dart';
 import 'package:booklink_visual/screen/cubit/user/user_appointments_cubit.dart';
 import 'package:booklink_visual/screen/landing/landing.dart';
 import 'package:booklink_visual/screen/loading/loading.dart';
+import 'package:booklink_visual/screen/private/home_screen.dart';
 import 'package:booklink_visual/screen/registration/login_page.dart';
 import 'package:booklink_visual/screen/registration/register_page.dart';
 import 'package:booklink_visual/screen/splash/splash_screen.dart';
@@ -46,6 +47,7 @@ class BooklinkApp extends StatelessWidget {
                 loading_route: (context) => LoadingScreen(),
                 booking_route: (context) => const BookingScreen(),
                 splash_route: (context) => const SplashScreen(),
+                home_route: (context) => const HomeScreen()
                 //welcome_route: (context) => WelcomeScreen(),
                 //success_route: (context) => SuccessScreen(),
                 //error_route: (context) => ErrorScreen()
