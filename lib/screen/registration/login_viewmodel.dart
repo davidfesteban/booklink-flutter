@@ -10,7 +10,7 @@ import '../../main_viewmodel.dart';
 
 class LoginViewModel {
   static void loginUser(BuildContext context, UserPayload userPayload) {
-    LoadingViewModel.perform(context, booking_route, () async {
+    LoadingViewModel.perform(context, home_route, () async {
       var token = await AuthControllerApi().authenticateUser(userPayload.email!, userPayload.password!);
       token = "Bearer " + token!;
       var userPayloadDatabase = await UserCrudControllerApi().findDetails(token);

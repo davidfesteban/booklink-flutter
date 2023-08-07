@@ -1,14 +1,6 @@
-//
-// AUTO-GENERATED FILE, DO NOT MODIFY!
-//
-// @dart=2.12
+import 'dart:convert';
 
-// ignore_for_file: unused_element, unused_import
-// ignore_for_file: always_put_required_named_parameters_first
-// ignore_for_file: constant_identifier_names
-// ignore_for_file: lines_longer_than_80_chars
-
-part of openapi.api;
+import 'package:http/http.dart';
 
 class QueryParam {
   const QueryParam(this.name, this.value);
@@ -21,15 +13,22 @@ class QueryParam {
 }
 
 // Ported from the Java version.
-Iterable<QueryParam> _queryParams(String collectionFormat, String name, dynamic value,) {
+Iterable<QueryParam> queryParams(
+  String collectionFormat,
+  String name,
+  dynamic value,
+) {
   // Assertions to run in debug mode only.
   assert(name.isNotEmpty, 'Parameter cannot be an empty string.');
 
   final params = <QueryParam>[];
+  const delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
 
   if (value is List) {
     if (collectionFormat == 'multi') {
-      return value.map((dynamic v) => QueryParam(name, parameterToString(v)),);
+      return value.map(
+        (dynamic v) => QueryParam(name, parameterToString(v)),
+      );
     }
 
     // Default collection format is 'csv'.
@@ -37,9 +36,12 @@ Iterable<QueryParam> _queryParams(String collectionFormat, String name, dynamic 
       collectionFormat = 'csv'; // ignore: parameter_assignments
     }
 
-    final delimiter = _delimiters[collectionFormat] ?? ',';
+    final delimiter = delimiters[collectionFormat] ?? ',';
 
-    params.add(QueryParam(name, value.map<dynamic>(parameterToString).join(delimiter),));
+    params.add(QueryParam(
+      name,
+      value.map<dynamic>(parameterToString).join(delimiter),
+    ));
   } else if (value != null) {
     params.add(QueryParam(name, parameterToString(value)));
   }
@@ -60,11 +62,13 @@ String parameterToString(dynamic value) {
 
 /// Returns the decoded body as UTF-8 if the given headers indicate an 'application/json'
 /// content type. Otherwise, returns the decoded body as decoded by dart:http package.
-Future<String> _decodeBodyBytes(Response response) async {
+Future<String> decodeBodyBytes(Response response) async {
   final contentType = response.headers['content-type'];
   return contentType != null && contentType.toLowerCase().startsWith('application/json')
-    ? response.bodyBytes.isEmpty ? '' : utf8.decode(response.bodyBytes)
-    : response.body;
+      ? response.bodyBytes.isEmpty
+          ? ''
+          : utf8.decode(response.bodyBytes)
+      : response.body;
 }
 
 /// Returns a valid [T] value found at the specified Map [key], null otherwise.
@@ -82,12 +86,13 @@ Map<K, V>? mapCastOfType<K, V>(dynamic map, String key) {
 /// Returns a valid [DateTime] found at the specified Map [key], null otherwise.
 DateTime? mapDateTime(dynamic map, String key, [String? pattern]) {
   final dynamic value = map is Map ? map[key] : null;
+  const dateEpochMarker = 'epoch';
   if (value != null) {
     int? millis;
     if (value is int) {
       millis = value;
     } else if (value is String) {
-      if (pattern == _dateEpochMarker) {
+      if (pattern == dateEpochMarker) {
         millis = int.tryParse(value);
       } else {
         return DateTime.tryParse(value);

@@ -41,33 +41,26 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
           title: Text(state.name!),
           bottom: TabBar(
             controller: _tabController,
-            tabs: <Widget>[
+            onTap: (index) {
+              if (_tabController.indexIsChanging && _tabController.index > _tabController.previousIndex ) {
+                _tabController.index = _tabController.previousIndex;
+              } else {
+                return;
+              }
+            },
+            tabs: const <Widget>[
               Tab(
-                child: GestureDetector(
-                    child: Text("What"),
-                    onTap: () {
-                      if (_tabController.index > 0) _tabController.animateTo(0);
-                    },
-                supportedDevices: const {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.unknown},
-              )),
-              GestureDetector(
-                    child: Text("When"),
-                    onTap: () {
-                      if (_tabController.index > 1) _tabController.animateTo(1);
-                    },
-                  supportedDevices: const {PointerDeviceKind.mouse, PointerDeviceKind.touch, PointerDeviceKind.unknown}),
-
-              const IgnorePointer(
-                child: Tab(
-                    child: Text("Where"),
-              )),
-              Tab(
-                child: GestureDetector(
-                    child: Text("Checkout"),
-                    onTap: () {
-                      if (_tabController.index > 3) _tabController.animateTo(3);
-                    }),
+                text: "What",
               ),
+              Tab(
+                text: "When",
+              ),
+              Tab(
+                text: "Where",
+              ),
+              Tab(
+                text: "Checkout",
+              )
             ],
           ),
         ),
@@ -90,14 +83,11 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
         ),
         floatingActionButton: FloatingActionButton.extended(
             onPressed: () {
-              print("pressed");
-              if (_tabController.length - 1 > _tabController.index && 0 < _tabController.index) {
-                print("here1");
+              if (_tabController.length - 1 > _tabController.index && 0 <= _tabController.index) {
                 _tabController.animateTo(_tabController.index + 1);
-                print("here2");
               } else {
                 // Create appointment
-                print("here3");
+
               }
             },
             label: const Text("Next step")),
