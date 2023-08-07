@@ -29,6 +29,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        //TODO: Logout
+        leading: IconButton.filled(onPressed: null, icon: Icon(Icons.logout)),
+        actions: [
+          IconButton.filled(onPressed: showProfileDialog(context), icon: Icon(Icons.person)),
+          IconButton.filled(onPressed: null, icon: Icon(Icons.business))
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: const <Widget>[
@@ -53,5 +59,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ],
       ),
     );
+  }
+
+  showProfileDialog(BuildContext context) {
+    showDialog(context: context, builder: builder)
   }
 }
