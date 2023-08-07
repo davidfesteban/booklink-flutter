@@ -9,7 +9,7 @@ class UserApiService extends BaseControllerApi {
   UserApiService({ApiClient? apiClient}) : super(apiClient: apiClient);
 
   Future<UserPayload?> findDetails(String authorization) async {
-    const path = '/api/public/user/findDetails';
+    const path = '/api/private/user/findDetails';
     final headerParams = <String, String>{'Authorization': parameterToString(authorization)};
 
     final response = await performApiCall(path, 'GET', headerParams: headerParams);

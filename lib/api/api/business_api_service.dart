@@ -17,9 +17,17 @@ class BusinessApiService extends BaseControllerApi {
     return await handleResponse(response);
   }
 
-  //TODO: Update on Backend
+  Future<BusinessPayload?> modifyBusinessDetails(String authorization, BusinessPayload businessPayload) async {
+    const path = '/api/private/business/modify';
+    final headerParams = <String, String>{'Authorization': parameterToString(authorization)};
+
+    final response = await performApiCall(path, 'POST', postBody: businessPayload, headerParams: headerParams);
+
+    return await handleResponse(response);
+  }
+
   Future<BusinessPayload?> findBusinessDetails(String host) async {
-    const path = '/api/private/business/details';
+    const path = '/api/public/business/details';
     final queryParams = <QueryParam>[QueryParam("host", host)];
 
     final response = await performApiCall(path, 'GET', queryParams: queryParams);
@@ -27,11 +35,11 @@ class BusinessApiService extends BaseControllerApi {
     return await handleResponse(response);
   }
 
-  Future<BusinessPayload?> modifyBusinessDetails(String authorization, BusinessPayload businessPayload) async {
-    const path = '/api/private/business/modify';
-    final headerParams = <String, String>{'Authorization': parameterToString(authorization)};
+  Future<BusinessPayload?> findBusinessDetailsByAppointmentId(String id) async {
+    const path = '/api/public/business/detailsByAppointment';
+    final queryParams = <QueryParam>[QueryParam("id", id)];
 
-    final response = await performApiCall(path, 'POST', postBody: businessPayload, headerParams: headerParams);
+    final response = await performApiCall(path, 'GET', queryParams: queryParams);
 
     return await handleResponse(response);
   }
