@@ -4,14 +4,14 @@ import 'package:booklink_visual/screen/cubit/user_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AppointmentsPage extends StatefulWidget {
-  const AppointmentsPage({super.key});
+class AppointmentsBusinessPage extends StatefulWidget {
+  const AppointmentsBusinessPage({super.key});
 
   @override
-  State<AppointmentsPage> createState() => _AppointmentsPageState();
+  State<AppointmentsBusinessPage> createState() => _AppointmentsBusinessPageState();
 }
 
-class _AppointmentsPageState extends State<AppointmentsPage> with TickerProviderStateMixin {
+class _AppointmentsBusinessPageState extends State<AppointmentsBusinessPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
@@ -27,7 +27,7 @@ class _AppointmentsPageState extends State<AppointmentsPage> with TickerProvider
     return BlocBuilder<UserCubit, UserPayload?>(builder: (context, state) {
       if (state != null) {
         return ListView(
-          children: state.appointments.map((e) {
+          children: state.business!.appointments.map((e) {
             return ListTile(
               title: _getTitle(e),
               subtitle: _getSubtitle(e),
@@ -59,10 +59,10 @@ class _AppointmentsPageState extends State<AppointmentsPage> with TickerProvider
   }
 
   Widget _getTitle(AppointmentPayload appointmentPayload) {
-    return Text(appointmentPayload.businessPayload!.name!);
+    return Text(appointmentPayload.userPayload!.name!);
   }
 
   Widget _getSubtitle(AppointmentPayload appointmentPayload) {
-    return Text(appointmentPayload.businessPayload!.address!);
+    return Text(appointmentPayload.slotService!);
   }
 }

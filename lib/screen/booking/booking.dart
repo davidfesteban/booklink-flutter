@@ -1,6 +1,5 @@
 import 'package:booklink_visual/screen/booking/booking_viewmodel.dart';
-import 'package:booklink_visual/screen/cubit/business/business_appointments_cubit.dart';
-import 'package:booklink_visual/screen/cubit/user/business_user_appointments_cubit.dart';
+import 'package:booklink_visual/screen/cubit/business_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,7 +31,7 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PublicBusinessAppointmentsCubit, BusinessPayload?>(builder: (context, state) {
+    return BlocBuilder<BusinessCubit, BusinessPayload?>(builder: (context, state) {
       if (state == null) {
         return FloatingActionButton(onPressed: () => BookingViewModel.recoverBusinessDetails(context));
       }
@@ -43,7 +42,7 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
           bottom: TabBar(
             controller: _tabController,
             onTap: (index) {
-              if (_tabController.indexIsChanging && _tabController.index > _tabController.previousIndex ) {
+              if (_tabController.indexIsChanging && _tabController.index > _tabController.previousIndex) {
                 _tabController.index = _tabController.previousIndex;
               } else {
                 return;
@@ -88,7 +87,6 @@ class _BookingScreenState extends State<BookingScreen> with TickerProviderStateM
                 _tabController.animateTo(_tabController.index + 1);
               } else {
                 // Create appointment
-
               }
             },
             label: const Text("Next step")),

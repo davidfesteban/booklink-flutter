@@ -1,4 +1,5 @@
 import 'package:booklink_visual/api/model/user_payload.dart';
+import 'package:booklink_visual/screen/business/business_create_page.dart';
 import 'package:booklink_visual/screen/cubit/navigator_cubit.dart';
 import 'package:booklink_visual/screen/cubit/token_cubit.dart';
 import 'package:booklink_visual/screen/cubit/user_cubit.dart';
@@ -8,16 +9,16 @@ import 'package:booklink_visual/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({
+class BusinessInfoPage extends StatefulWidget {
+  const BusinessInfoPage({
     super.key,
   });
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<BusinessInfoPage> createState() => _BusinessInfoPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _BusinessInfoPageState extends State<BusinessInfoPage> with TickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -36,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return BlocListener<UserCubit, UserPayload?>(
       listener: (context, state) {
-        if (state == null || state.email!.isEmpty) {
+        if (state == null) {
           LoadingViewModel.perform(context, home_route, UserCubit.reloadFromApi(context));
         }
       },
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               text: "Appointments",
             ),
             Tab(
-              text: "Recent places",
+              text: "Edit",
             ),
           ],
         ),
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: AppointmentsPage(),
           ),
           Center(
-            child: Text("It's rainy here"),
+            child: BusinessCreatePage(),
           )
         ],
       ),

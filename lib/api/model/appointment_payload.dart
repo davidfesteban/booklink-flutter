@@ -1,3 +1,6 @@
+import 'package:booklink_visual/api/model/business_payload.dart';
+import 'package:booklink_visual/api/model/user_payload.dart';
+
 import '../api_helper.dart';
 
 class AppointmentPayload {
@@ -9,7 +12,7 @@ class AppointmentPayload {
     this.slotDuration,
     this.slotService,
     this.manualBookingInfoByAdmin,
-    this.manualBookingInviteToJoin,
+    this.manualBookingInviteToJoin, this.businessPayload, this.userPayload
   });
 
   ///
@@ -67,6 +70,10 @@ class AppointmentPayload {
   /// Consider adding a "default:" property in the specification file to hide this note.
   ///
   String? manualBookingInviteToJoin;
+  
+  BusinessPayload? businessPayload;
+  
+  UserPayload? userPayload;
 
   @override
   bool operator ==(Object other) => identical(this, other) || other is AppointmentPayload &&
@@ -76,7 +83,9 @@ class AppointmentPayload {
      other.slotDuration == slotDuration &&
      other.slotService == slotService &&
      other.manualBookingInfoByAdmin == manualBookingInfoByAdmin &&
-     other.manualBookingInviteToJoin == manualBookingInviteToJoin;
+     other.manualBookingInviteToJoin == manualBookingInviteToJoin &&
+     other.businessPayload == businessPayload &&
+     other.userPayload == userPayload;
 
   @override
   int get hashCode =>
@@ -87,7 +96,9 @@ class AppointmentPayload {
     (slotDuration == null ? 0 : slotDuration!.hashCode) +
     (slotService == null ? 0 : slotService!.hashCode) +
     (manualBookingInfoByAdmin == null ? 0 : manualBookingInfoByAdmin!.hashCode) +
-    (manualBookingInviteToJoin == null ? 0 : manualBookingInviteToJoin!.hashCode);
+    (manualBookingInviteToJoin == null ? 0 : manualBookingInviteToJoin!.hashCode) + 
+        (businessPayload == null ? 0 : businessPayload!.hashCode) +
+        (userPayload == null ? 0 : userPayload!.hashCode);
 
   @override
   String toString() => 'AppointmentPayload[id=$id, slotOwner=$slotOwner, slotStartAppointment=$slotStartAppointment, slotDuration=$slotDuration, slotService=$slotService, manualBookingInfoByAdmin=$manualBookingInfoByAdmin, manualBookingInviteToJoin=$manualBookingInviteToJoin]';
@@ -129,6 +140,18 @@ class AppointmentPayload {
     } else {
       json[r'manualBookingInviteToJoin'] = null;
     }
+
+    if (this.businessPayload != null) {
+      json[r'businessPayload'] = this.businessPayload;
+    } else {
+      json[r'businessPayload'] = null;
+    }
+
+    if (this.userPayload != null) {
+      json[r'userPayload'] = this.userPayload;
+    } else {
+      json[r'userPayload'] = null;
+    }
     return json;
   }
 
@@ -158,6 +181,8 @@ class AppointmentPayload {
         slotService: mapValueOfType<String>(json, r'slotService'),
         manualBookingInfoByAdmin: mapValueOfType<String>(json, r'manualBookingInfoByAdmin'),
         manualBookingInviteToJoin: mapValueOfType<String>(json, r'manualBookingInviteToJoin'),
+        businessPayload: BusinessPayload.fromJson(json[r'businessPayload']),
+        userPayload: UserPayload.fromJson(json[r'userPayload']),
       );
     }
     return null;

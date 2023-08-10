@@ -1,20 +1,21 @@
+import 'package:booklink_visual/screen/cubit/navigator_cubit.dart';
+import 'package:booklink_visual/screen/cubit/token_cubit.dart';
+import 'package:booklink_visual/screen/cubit/user_cubit.dart';
+import 'package:booklink_visual/screen/loading/loading_viewmodel.dart';
 import 'package:booklink_visual/utils/routes.dart';
-import 'package:booklink_visual/screen/registration/login_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/model/user_payload.dart';
-import '../../main_viewmodel.dart';
-import '../cubit/user/key_store.dart';
 
-class JoinPage extends StatefulWidget {
-  const JoinPage({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<JoinPage> createState() => _JoinPageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _JoinPageState extends State<JoinPage> with TickerProviderStateMixin {
+class _LoginScreenState extends State<LoginScreen> with TickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -27,9 +28,7 @@ class _JoinPageState extends State<JoinPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     final bool isSmallScreen = MediaQuery.of(context).size.width < 600;
 
-    _controller = AnimationController(
-        duration: const Duration(milliseconds: 1100), vsync: this)
-      ..forward(from: 0);
+    _controller = AnimationController(duration: const Duration(milliseconds: 1100), vsync: this)..forward(from: 0.0);
 
     final Animation<double> _animation = CurvedAnimation(
       parent: _controller,
@@ -44,7 +43,7 @@ class _JoinPageState extends State<JoinPage> with TickerProviderStateMixin {
                 child: isSmallScreen
                     ? Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: const [
+                        children: [
                           _Logo(),
                           _FormContent(),
                         ],
@@ -53,7 +52,7 @@ class _JoinPageState extends State<JoinPage> with TickerProviderStateMixin {
                         padding: const EdgeInsets.all(32.0),
                         constraints: const BoxConstraints(maxWidth: 800),
                         child: Row(
-                          children: const [
+                          children: [
                             Expanded(child: _Logo()),
                             Expanded(
                               child: Center(child: _FormContent()),
@@ -74,20 +73,13 @@ class _Logo extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset('images/logo_v2.png',
-            width: isSmallScreen ? 100 : 200,
-            height: isSmallScreen ? 100 : 200),
+        Image.asset('images/logo_v2.png', width: isSmallScreen ? 100 : 200, height: isSmallScreen ? 100 : 200),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "Welcome Pilot!",
+            "Book with my link!",
             textAlign: TextAlign.center,
-            style: isSmallScreen
-                ? Theme.of(context).textTheme.headline5
-                : Theme.of(context)
-                    .textTheme
-                    .headline4
-                    ?.copyWith(color: Colors.black),
+            style: isSmallScreen ? Theme.of(context).textTheme.headline5 : Theme.of(context).textTheme.headline4?.copyWith(color: Colors.black),
           ),
         )
       ],
@@ -120,26 +112,6 @@ class __FormContentState extends State<_FormContent> {
           children: [
             TextFormField(
               onSaved: (newValue) {
-                userPayload.name = newValue;
-              },
-              validator: (value) {
-                // add Name validation
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your name';
-                }
-
-                return null;
-              },
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                hintText: 'Enter your name',
-                prefixIcon: Icon(Icons.person_outlined),
-                border: OutlineInputBorder(),
-              ),
-            ),
-            _gap(),
-            TextFormField(
-              onSaved: (newValue) {
                 userPayload.email = newValue;
               },
               validator: (value) {
@@ -148,9 +120,7 @@ class __FormContentState extends State<_FormContent> {
                   return 'Please enter some text';
                 }
 
-                bool emailValid = RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    .hasMatch(value);
+                bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                 if (!emailValid) {
                   return 'Please enter a valid email';
                 }
@@ -186,9 +156,7 @@ class __FormContentState extends State<_FormContent> {
                   prefixIcon: const Icon(Icons.lock_outline_rounded),
                   border: const OutlineInputBorder(),
                   suffixIcon: IconButton(
-                    icon: Icon(_isPasswordVisible
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    icon: Icon(_isPasswordVisible ? Icons.visibility_off : Icons.visibility),
                     onPressed: () {
                       setState(() {
                         _isPasswordVisible = !_isPasswordVisible;
@@ -201,32 +169,27 @@ class __FormContentState extends State<_FormContent> {
               width: double.infinity,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(10.0),
                   child: Text(
-                    'Sign in',
+                    'Log in',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ),
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
                     _formKey.currentState?.save();
-                    LoginViewModel.registerUser(context, userPayload);
+                    LoadingViewModel.perform(context, home_route, () async {
+                      await TokenCubit.authenticate(context, userPayload).call();
+                      return await UserCubit.reloadFromApi(context).call();
+                    });
                   }
                 },
               ),
             ),
-            TextButton(
-                onPressed: () => context
-                    .read<KeyStoreCubit>()
-                    .get()
-                    .navigatorKey
-                    .currentState
-                    ?.pushReplacementNamed(login_route),
-                child: Text("Already registered?"))
+            TextButton(onPressed: () => context.read<NavigatorCubit>().get().currentState?.pushReplacementNamed(join_route), child: Text("Are you a new user?"))
           ],
         ),
       ),

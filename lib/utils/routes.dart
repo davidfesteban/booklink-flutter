@@ -8,6 +8,7 @@ const welcome_route = "/welcome";
 const home_route = "/home";
 const success_route = "/success";
 const error_route = "/error";
+const business_route = "/business";
 
 
 const newtask_route = "/newtask";

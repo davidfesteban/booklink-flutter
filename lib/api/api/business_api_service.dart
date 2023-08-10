@@ -34,13 +34,4 @@ class BusinessApiService extends BaseControllerApi {
 
     return await handleResponse(response);
   }
-
-  Future<BusinessPayload?> findBusinessDetailsByAppointmentId(String id) async {
-    const path = '/api/public/business/detailsByAppointment';
-    final queryParams = <QueryParam>[QueryParam("id", id)];
-
-    final response = await performApiCall(path, 'GET', queryParams: queryParams);
-
-    return await handleResponse(response);
-  }
 }

@@ -11,18 +11,19 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:booklink_visual/api/api/auth_api_service.dart';
 import 'package:test/test.dart';
 
 import '../api/api.dart';
 
 /// tests for AuthControllerApi
 void main() {
-  final instance = AuthControllerApi();
+  final instance = AuthApiService();
 
-  group('tests for AuthControllerApi', () {
+  group('tests for ', () {
     //Future<String> authenticateUser(String email, String password) async
     test('test authenticateUser', () async {
-      var token = await instance.authenticateUser("david@misei.dev", "password");
+      var token = await instance.("david@misei.dev", "password");
       print(token);
     });
 

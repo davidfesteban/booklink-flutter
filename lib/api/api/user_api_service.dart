@@ -17,12 +17,11 @@ class UserApiService extends BaseControllerApi {
     return await handleResponse(response);
   }
 
-  Future<UserPayload?> findDetailsByAppointmentId(String authorization, String id) async {
-    const path = '/api/private/user/findDetailsByAppointmentId';
+  Future<void> isValidToken(String authorization) async {
+    const path = '/api/private/user/isValidToken';
     final headerParams = <String, String>{'Authorization': parameterToString(authorization)};
-    final queryParams = <QueryParam>[QueryParam("id", id)];
 
-    final response = await performApiCall(path, 'GET', headerParams: headerParams, queryParams: queryParams);
+    final response = await performApiCall(path, 'GET', headerParams: headerParams);
 
     return await handleResponse(response);
   }
